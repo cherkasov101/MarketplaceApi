@@ -9,6 +9,7 @@ import (
 	"github.com/cherkasov101/MarketplaceApi/internal/services"
 )
 
+// Function to create ad
 func CreateAd(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	username, check, err := services.CheckToken(r, db)
 	if err != nil {
@@ -33,6 +34,12 @@ func CreateAd(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		return
 	}
 
+	jsonResponse, err := json.Marshal(ad)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ок"))
+	w.Write(jsonResponse)
 }

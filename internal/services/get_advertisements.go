@@ -18,11 +18,9 @@ type AdForList struct {
 func GetAdvertisements(db *sql.DB, page int, sortBy string, sortDir string) ([]AdForList, error) {
 	var ads []AdForList
 
-	// Calculate the number of ads to retrieve based on page number
 	adsPerPage := 10
 	offset := (page - 1) * adsPerPage
 
-	// Construct SQL query based on sorting criteria
 	var query string
 	switch sortBy {
 	case "price":
@@ -39,7 +37,6 @@ func GetAdvertisements(db *sql.DB, page int, sortBy string, sortDir string) ([]A
 			"ORDER BY user_ads.created_at DESC LIMIT ? OFFSET ?"
 	}
 
-	// Execute the query
 	rows, err := db.Query(query, adsPerPage, offset)
 	if err != nil {
 		fmt.Println(err)
@@ -47,7 +44,6 @@ func GetAdvertisements(db *sql.DB, page int, sortBy string, sortDir string) ([]A
 	}
 	defer rows.Close()
 
-	// Iterate through the rows and populate the ads slice
 	for rows.Next() {
 		var ad AdForList
 		if err := rows.Scan(&ad.ID, &ad.Title, &ad.Description, &ad.ImageURL, &ad.Price, &ad.Author); err != nil {

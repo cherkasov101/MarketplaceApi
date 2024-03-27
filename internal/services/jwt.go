@@ -10,18 +10,17 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// Claims представляет собой данные, которые будут сохранены в JWT токене.
+// Data for JWT token
 type Claims struct {
 	Username string `json:"username"`
 	jwt.StandardClaims
 }
 
-// TokenResponse представляет собой JSON ответ с JWT токеном.
 type TokenResponse struct {
 	Token string `json:"token"`
 }
 
-// GenerateToken генерирует JWT токен для указанного пользователя.
+// Function to generate token
 func GenerateToken(username string, db *sql.DB) (string, error) {
 	expirationTime := time.Now().Add(24 * time.Hour)
 	claims := &Claims{
@@ -43,6 +42,7 @@ func GenerateToken(username string, db *sql.DB) (string, error) {
 	return tokenString, nil
 }
 
+// Function to check token and return username
 func CheckToken(r *http.Request, db *sql.DB) (string, bool, error) {
 	tokenString := r.Header.Get("Authorization")
 	if tokenString == "" {

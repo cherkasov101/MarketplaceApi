@@ -41,7 +41,7 @@ func main() {
 		handlers.CreateAd(w, r, DB)
 	}).Methods(http.MethodPost)
 	r.HandleFunc("/get_ads", func(w http.ResponseWriter, r *http.Request) {
-		handlers.GetAdvertisements(w, r, DB)
+		handlers.GetAds(w, r, DB)
 	}).Methods(http.MethodGet)
 
 	http.ListenAndServe(":8080", r)

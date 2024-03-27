@@ -5,6 +5,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// Function to create the table with information about user ads
 func CreateUserAdsTable(db *sql.DB) error {
 	createTableSQL := `
 	CREATE TABLE IF NOT EXISTS user_ads (

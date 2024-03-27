@@ -9,7 +9,8 @@ import (
 	"github.com/cherkasov101/MarketplaceApi/internal/services"
 )
 
-func GetAdvertisements(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+// Function to get ads
+func GetAds(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	pageStr := r.URL.Query().Get("page")
 	if pageStr == "" {
 		pageStr = "1"
